@@ -265,7 +265,7 @@ extern void fetion_sip_set_connection(FetionSip* sip
  * @note this function should be put at a loop
  * @return the SipMsg object which contains the message related information
  */
-extern SipMsg* fetion_sip_listen(FetionSip* sip);
+extern SipMsg* fetion_sip_listen(FetionSip* sip, int *error);
 
 extern int fetion_sip_keep_alive(FetionSip* sip);
 
@@ -302,4 +302,10 @@ extern void fetion_sip_parse_sysmsg(const char* sipmsg , int *type
 extern int fetion_sip_parse_sipc(const char *sipmsg , int *callid , char **xml);
 
 extern struct tm convert_date(const char* date);
+
+extern inline void 
+fetion_sip_set_conn(FetionSip *sip, FetionConnection *conn)
+{
+	sip->tcp = conn;
+}
 #endif

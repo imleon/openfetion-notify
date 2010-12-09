@@ -23,19 +23,21 @@
 
 typedef struct
 {
-	char* content;
+	char content[256];
 	int phraseid;
 } Phrase;
 
 extern Config* fetion_config_new();
 
-extern void fetion_config_download_configuration(User* user);
+extern int fetion_config_download_configuration(User* user);
 
 extern int fetion_config_initialize(Config* config , const char* userid);
 
-extern int fetion_config_load_xml(User* user);
+extern int fetion_config_load_size(Config *config);
 
-extern int fetion_config_load_data(User* user);
+extern int fetion_config_save_size(Config *config);
+
+extern int fetion_config_load(User* user);
 
 extern Proxy* fetion_config_load_proxy();
 
@@ -57,8 +59,9 @@ extern void fetion_config_free(Config *config);
 #define foreach_userlist(head , ul) \
 	for(ul = head ; (ul = ul->next) != head;)
 
-extern struct userlist* fetion_user_list_new(const char* no 
-		, const char* password , int laststate , int islastuser);
+extern struct userlist* fetion_user_list_new(const char *no,
+		const char *password , const char *userid, const char *sid,
+	   	int laststate , int islastuser);
 
 extern void fetion_user_list_append(struct userlist *head , struct userlist *ul);
 
@@ -66,20 +69,23 @@ extern void fetion_user_list_save(Config* config , struct userlist* ul);
 
 extern void fetion_user_list_set_lastuser_by_no(struct userlist *ul , const char* no);
 
+extern int fetion_user_list_remove(Config *config, const char *no);
+
 extern struct userlist* fetion_user_list_find_by_no(struct userlist* list , const char* no);
 
 extern struct userlist* fetion_user_list_load(Config* config);
 
+extern void fetion_user_list_update_userid(Config *config,
+				const char *no, const char *userid);
+
 extern void fetion_user_list_free(struct userlist *list);
 
-
-/*private*/
-extern char* generate_configuration_body(User* user);
-
-extern void refresh_configuration_xml(const char* xml
-		, const char* xmlPath , User* user);
 
 extern xmlNodePtr xml_goto_node(xmlNodePtr node , const char* xml);
 
 extern char* xml_convert(xmlChar* in);
+
+void escape_sql(char *in);
+
+void unescape_sql(char *in);
 #endif 

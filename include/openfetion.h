@@ -37,6 +37,7 @@
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <openssl/rand.h>
+#include <sqlite3.h>
 #include <fetion_types.h>
 #include <fetion_list.h>
 #include <fetion_debug.h>
@@ -53,4 +54,16 @@
 #include <fetion_share.h>
 #include <fetion_directsms.h>
 #include <fetion_group.h>
+
+struct conn_list {
+        FetionConnection *conn;
+        struct conn_list *next;
+        struct conn_list *pre;
+};
+
+#define foreach_conn_list(head,cur) \
+        for(cur=head;(cur=cur->next)!=head;)
+
+struct conn_list *connlst;
+
 #endif

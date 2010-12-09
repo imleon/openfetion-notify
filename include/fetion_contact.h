@@ -63,6 +63,8 @@ extern Contact* fetion_contact_list_find_by_sipuri(Contact* contactlist , const 
  */
 extern void fetion_contact_list_remove_by_userid(Contact* contactlist , const char* userid);
 
+extern void fetion_contact_list_remove(Contact *contact);
+
 /**
  * free the resource of the while contact list
  * @param contactlist the head of the contact list
@@ -167,5 +169,15 @@ extern void parse_set_mobileno_permission_response(User* user , const char* sipm
 extern Contact* parse_contact_info_by_no_response(const char* sipmsg);
 
 extern void parse_add_buddy_verification(User* user , const char* str);
+
+extern void fetion_contact_load(User *user, int *gcount, int *bcount);
+
+extern void fetion_contact_save(User *user);
+
+extern void fetion_contact_update(User *user, Contact *contact);
+
+extern int fetion_contact_del_localbuddy(User *user, const char *userid);
+
+extern int fetion_contact_del_localgroup(User *user, const char *userid);
 
 #endif

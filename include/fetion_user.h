@@ -126,6 +126,8 @@ extern void fetion_group_list_append(Group* head , Group* group);
 
 extern void fetion_group_list_prepend(Group* head , Group* group);
 
+extern void fetion_group_list_remove(Group *group);
+
 extern void fetion_group_remove(Group* head , int groupid);
 
 extern Group* fetion_group_list_find_by_id(Group* head , int id);
@@ -139,5 +141,16 @@ extern void fetion_verification_free(Verification* ver);
 extern Contact* fetion_user_parse_presence_body(const char* body , User* user);
 
 extern Contact* fetion_user_parse_syncuserinfo_body(const char* body , User* user);
+
+extern int fetion_user_set_sms_status(User *user , int days);
+
+extern void fetion_user_save(User *user);
+
+extern void fetion_user_load(User *user);
+
+static inline void
+fetion_user_set_st(User *user, int state){
+	user->state = state;
+}
 
 #endif
